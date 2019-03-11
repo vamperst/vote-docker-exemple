@@ -18,7 +18,7 @@ services:
       - backend
   
   vote:
-    image: dockersamples/examplevotingapp_vote:after
+    image: dockersamples/examplevotingapp_vote:before
     ports:
       - 5000:80
     networks:
@@ -29,7 +29,7 @@ services:
       replicas: 2
 
   result:
-    image: dockersamples/examplevotingapp_result:after
+    image: dockersamples/examplevotingapp_result:before
     ports:
       - 5001:80
     networks:
