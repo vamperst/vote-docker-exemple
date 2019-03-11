@@ -18,6 +18,9 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - backend
+    deploy:
+      placement:
+        constraints: [node.labels.ssd == true]
 
   vote:
     image: dockersamples/examplevotingapp_vote:before
@@ -33,6 +36,8 @@ services:
         parallelism: 2
       restart_policy:
         condition: on-failure
+      placement:
+        constraints: [node.labels.gpu == true]
   result:
     image: dockersamples/examplevotingapp_result:before
     ports:
@@ -48,6 +53,7 @@ services:
         delay: 10s
       restart_policy:
         condition: any
+
 
   worker:
     image: dockersamples/examplevotingapp_worker
