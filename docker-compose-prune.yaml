@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  system-prune:
+    image: docker
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: docker system prune --all --force --volumes
+    deploy:
+      mode: global
+      restart_policy:
+        condition: none
