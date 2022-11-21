@@ -9,6 +9,8 @@ services:
       - frontend
     deploy:
       replicas: 1
+      placement:
+        constraints: [node.role != manager]
   
   db:
     image: postgres:9.4
@@ -16,6 +18,9 @@ services:
       - db-data:/var/lib/postgresql/data
     networks: 
       - backend
+    deploy:
+      placement:
+        constraints: [node.role != manager]
   
   vote:
     image: dockersamples/examplevotingapp_vote:before
@@ -27,6 +32,8 @@ services:
       - redis
     deploy: 
       replicas: 2
+      placement:
+        constraints: [node.role != manager]
 
   result:
     image: dockersamples/examplevotingapp_result:before
@@ -38,6 +45,8 @@ services:
       - db
     deploy:
       replicas: 1
+      placement:
+        constraints: [node.role != manager]
 
   worker:
     image: dockersamples/examplevotingapp_worker
@@ -47,6 +56,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints: [node.role != manager]
   
   visualizer:
     image: dockersamples/visualizer:stable
